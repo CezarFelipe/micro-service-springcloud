@@ -24,8 +24,10 @@ public class HrConfigServerApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("USERNAME == " + username);
-		System.out.println("PASS == " + password);
+		/*
+		 * System.out.println("USERNAME == " + username); System.out.println("PASS == "
+		 * + password);
+		 */
 		
 	}
 
