@@ -19,17 +19,11 @@ public class UserResource {
 	private UserService service;
 	
 	@GetMapping(value = "search")
-	public ResponseEntity<User> findByEmail(@RequestParam String email){
+	public ResponseEntity<User> findByEmail(@RequestParam String email) throws IllegalAccessException{
 		
 		
-		try {
-			User user = service.findByEmail(email);
-			return ResponseEntity.ok(user);
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
+		User user = service.findByEmail(email);
+		return ResponseEntity.ok(user);
 		
 		
 	}
