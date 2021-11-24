@@ -1,5 +1,6 @@
 package br.edu.hrpigatewayzuul.config;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,8 @@ public class AppConfig {
 	
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
+		
+		System.out.println(jwtSecret);
 		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
 		tokenConverter.setSigningKey(jwtSecret);
 		return tokenConverter;

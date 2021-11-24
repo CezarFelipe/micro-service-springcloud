@@ -23,9 +23,6 @@ import br.edu.hrworker.repository.WorkerRepository;
 @RequestMapping(value = "/workers")
 public class WorkerResource {
 
-	@Value("${test.config}")
-	private String testConfig;
-
 	private static Logger logger = LoggerFactory.getLogger(WorkerRepository.class);
 
 	@Autowired
@@ -43,10 +40,6 @@ public class WorkerResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Worker> findId(@PathVariable Long id) {
 
-		/*
-		 * try { Thread.sleep(3000l); } catch (InterruptedException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 */
 
 		logger.info("PORT ===" + env.getProperty("local.server.port"));
 
@@ -54,14 +47,4 @@ public class WorkerResource {
 		return ResponseEntity.ok(obj);
 	}
 
-	@GetMapping(value = "/configs")
-	public ResponseEntity<String> getConfigs() {
-
-		String log = "CONFIG == " + testConfig;
-
-		logger.info(log);
-
-		return new ResponseEntity<String>(log, HttpStatus.OK);
-
-	}
 }
