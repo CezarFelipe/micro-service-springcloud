@@ -117,7 +117,7 @@ docker run -p 8765:8765 --name hr-api-gateway-zuul --network hr-net hr-api-gatew
 
 ### [Documentação postman](https://documenter.getpostman.com/view/9570826/UVJhDa1D)
 ### Collection / Environment
-Importe a collection e a variável de ambiente disposta nesse repositório para o postman ou outro software do genero, micro-service-springcloud.postman_collection, ms-springcloud-env.postman_environment.
+Importe a collection(micro-service-springcloud.postman_collection) e a variável de ambiente(ms-springcloud-env.postman_environment) disposta nesse repositório.
 
 ## Tecnologias utilizadas
 ---
