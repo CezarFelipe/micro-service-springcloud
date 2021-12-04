@@ -126,8 +126,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [JDK11](https://www.oracle.com/br/java/technologies/javase/jdk11-archive-downloads.html)
 - [STS](https://spring.io/tools)
 - [DOCKER](https://docs.docker.com/desktop/windows/install/)
-- [INSOMNIA](https://insomnia.rest/download)
-- [POSTGRE](https://www.postgresql.org/download/)
+- [POSTMAN](https://www.postman.com/)
+- [POSTGRESQL](https://www.postgresql.org/download/)
 
 ## **Autor**
 ---
