@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "63b96963-8e34-466a-aa4a-f35f56dd68d6",
+		"name": "micro-service-springcloud",
+		"description": "# Introduction\n\nFornece o valor total do salário através da quantidade de dias trabalhado.\n\n# Overview\n\nAs API's foram desenvolvidas com spring boot e spring cloud, utilizando a arquitetura de micro serviços.\n\n# Authentication\n\nAs API's se comunicam através do protocolo basic oauth2 e bearer token.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "hr-config-server",
+			"item": [
+				{
+					"name": "hr-worker-config-default-profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-config-server}}/hr-worker/default",
+							"host": [
+								"{{host-config-server}}"
+							],
+							"path": [
+								"hr-worker",
+								"default"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hr-worker-config-test-profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-config-server}}/hr-worker/test",
+							"host": [
+								"{{host-config-server}}"
+							],
+							"path": [
+								"hr-worker",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "hr-payroll",
+			"item": [
+				{
+					"name": "Payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-api-gateway}}/hr-payroll/payments/2/days/5000",
+							"host": [
+								"{{host-api-gateway}}"
+							],
+							"path": [
+								"hr-payroll",
+								"payments",
+								"2",
+								"days",
+								"5000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "hr-user",
+			"item": [
+				{
+					"name": "UserById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-api-gateway}}/hr-user/users/2",
+							"host": [
+								"{{host-api-gateway}}"
+							],
+							"path": [
+								"hr-user",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserByEmail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-api-gateway}}/hr-user/users/search?email=nina@gmail.com",
+							"host": [
+								"{{host-api-gateway}}"
+							],
+							"path": [
+								"hr-user",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "nina@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "hr-oauth",
+			"item": [
+				{
+					"name": "UserByEmail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-api-gateway}}/hr-oauth/users/search?email=nina@gmail.com",
+							"host": [
+								"{{host-api-gateway}}"
+							],
+							"path": [
+								"hr-oauth",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "nina@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (responseCode.code >= 200 && responseCode.code < 300) {\r",
+									"    var json = JSON.parse(responseBody);\r",
+									"    postman.setEnvironmentVariable('token', json.access_token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{username-app}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password-app}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{username-user-admin}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password-user}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "{{grant_type}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host-api-gateway}}/hr-oauth/oauth/token",
+							"host": [
+								"{{host-api-gateway}}"
+							],
+							"path": [
+								"hr-oauth",
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "hr-worker",
+			"item": [
+				{
+					"name": "All workers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-api-gateway}}/hr-worker/workers",
+							"host": [
+								"{{host-api-gateway}}"
+							],
+							"path": [
+								"hr-worker",
+								"workers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Worker by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-api-gateway}}/hr-worker/workers/2",
+							"host": [
+								"{{host-api-gateway}}"
+							],
+							"path": [
+								"hr-worker",
+								"workers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show worker on console",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host-api-gateway}}/hr-worker/workers/configs",
+							"host": [
+								"{{host-api-gateway}}"
+							],
+							"path": [
+								"hr-worker",
+								"workers",
+								"configs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actuator refresh",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host-api-gateway}}/hr-worker/actuator/refresh",
+							"host": [
+								"{{host-api-gateway}}"
+							],
+							"path": [
+								"hr-worker",
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
